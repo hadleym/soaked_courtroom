@@ -56,7 +56,7 @@ public class TestWumpus{
 		assertTrue(board.isTileDeadly(slimes[0][0],slimes[0][1]));
 		assertTrue(board.isTileDeadly(slimes[1][0],slimes[1][1]));
 		assertTrue(board.isTileDeadly(slimes[2][0],slimes[2][1]));
-		assertTrue(board.equals( JButton
+	
 	}
 
 	@Test

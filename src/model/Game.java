@@ -1,6 +1,8 @@
 package model;
+import java.util.Observable;
+import java.util.Observer;
 
-public class Game{
+public class Game extends Observable{
 	private Hunter hunter;
 	private Board board;
 	public Game(Hunter h, Board b){
@@ -8,10 +10,32 @@ public class Game{
 		board = b;
 	}
 	
+	@Override
+	public String toString(){
+		return this.getCurrentTile();
+	}
 	public boolean isOver(){
 		return board.isTileDeadly(hunter.getX(), hunter.getY());
 	}
-		
+	public void move(Dir d){
+		switch(d){
+			case EAST:
+				moveEast();
+				break;
+			case WEST:
+				moveWest();
+				break;
+			case NORTH:
+				moveNorth();
+				break;
+			case SOUTH:
+				moveSouth();
+				break;
+			default:
+		}	
+		setChanged();
+		notifyObservers(this);
+	}
 	public void moveWest(){
 		int x = hunter.getX();
 		x--;
@@ -48,5 +72,10 @@ public class Game{
 	public int getHunterY(){
 		return hunter.getY();
 	}
-}
 
+	public String getCurrentTile(){
+		return board.getTile(hunter.getX(), hunter.getY()).toString();
+
+	}	
+
+}

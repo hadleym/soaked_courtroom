@@ -37,6 +37,10 @@ public class Board {
 		setTile(wumpusTile[0]+1,wumpusTile[1]-1, Tile.BLOOD);
 		setTile(wumpusTile[0]+1,wumpusTile[1]+1, Tile.BLOOD);
 	}
+	public boolean isTileDeadly(int x, int y){
+		return (board[x][y] == Tile.WUMPUS || board[x][y] == Tile.PIT);
+	}
+			
 
 	private void addPit(){
 		for (int[] l : pitTiles){
@@ -73,7 +77,7 @@ public class Board {
 	}
 	@Override
 	public String toString(){
-		return getSize()[0] +","+getSize()[1];
+		return board[x][y].toString();
 	}
 
 }

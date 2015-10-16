@@ -86,9 +86,9 @@ public class TestView extends JPanel implements Observer{
 		game = (Game) arg0;	
 		hunterX = game.getHunterX();
 		hunterY = game.getHunterY();
-		String text = drawBoard()+game.getCurrentTile();
+		String text = drawBoard()+game.message;
 		if (game.isOver())
-			text+="\n GAME OVER!";
+			text+="\nGAME OVER!";
 		textField.setText(text);
 				
 	}

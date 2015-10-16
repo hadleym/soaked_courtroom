@@ -42,29 +42,29 @@ public class Controller extends JPanel implements KeyListener{
 	private class NorthActionListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			game.move(Dir.NORTH);
-			textField.setText(game.getCurrentTile());
+			game.fireArrow(Dir.NORTH);
+			textField.setText("ARROW FIRED!");
 		}
 	}
 	private class SouthActionListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent arg0){
-			game.move(Dir.SOUTH);
-			textField.setText(game.getCurrentTile());
+			game.fireArrow(Dir.SOUTH);
+			textField.setText("ARROW FIRED!");
 		}
 	}
 	private class EastActionListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent arg0){
-			game.move(Dir.EAST);
-			textField.setText(game.getCurrentTile());
+			game.fireArrow(Dir.EAST);
+			textField.setText("ARROW FIRED!");
 		}
 	}
 	private class WestActionListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent arg0){
-			game.move(Dir.WEST);
-			textField.setText(game.getCurrentTile());
+			game.fireArrow(Dir.WEST);
+			textField.setText("ARROW FIRED!");
 		}
 	}
 

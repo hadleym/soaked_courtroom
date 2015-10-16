@@ -22,6 +22,19 @@ public class Board {
 		addWumpus();
 		
 	}		
+	public int getXMax(){
+		return width;
+	}
+
+	public int getYMax(){
+		return height;
+	}
+	public int getWumpusX(){
+		return wumpus[0];
+	}
+	public int getWumpusY(){
+		return wumpus[1];
+	}
 	private void addWumpus(){
 		board[wumpusTile[0]][wumpusTile[1]] = Tile.WUMPUS;
 		setTile(wumpusTile[0],wumpusTile[1]+1, Tile.BLOOD);

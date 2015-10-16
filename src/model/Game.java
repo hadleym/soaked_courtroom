@@ -6,6 +6,7 @@ public class Game extends Observable{
 	private Hunter hunter;
 	private Board board;
 	private boolean isGameOver;
+	public String message;
 	public Game(Hunter h, Board b){
 		hunter = h;
 		board = b;
@@ -17,7 +18,20 @@ public class Game extends Observable{
 		return this.getCurrentTile();
 	}
 	public boolean isOver(){
-		return(isGameOver = board.isTileDeadly(hunter.getX(), hunter.getY()));
+		if (!isGameOver)
+			isGameOver = board.isTileDeadly(hunter.getX(), hunter.getY());
+		return isGameOver;
+	}
+	public void setMessage(){
+		if (isGameOver){
+			if (board.isTileDeadly(hunter.getX(), hunter.getY())){
+				message = "Deadly Tile";
+			} else {
+				message = "You shot yourself!";
+			}
+		} else {
+			message = this.getCurrentTile().toString();
+		}
 	}
 	public void move(Dir d){
 		if (!isGameOver){
@@ -36,6 +50,7 @@ public class Game extends Observable{
 					break;
 				default:
 			}	
+			message = this.getCurrentTile().toString();
 			setChanged();
 			notifyObservers(this);
 		}
@@ -70,6 +85,35 @@ public class Game extends Observable{
 		hunter.setY(y);
 	}
 
+	public void fireArrow(Dir d){
+		if (!isOver()){
+			if ((d == Dir.NORTH) || (d == Dir.SOUTH))
+				fireNorth();
+			else 
+				fireEast();
+			isGameOver = true;
+
+			setChanged();
+			notifyObservers(this);
+		}
+	}
+
+	private void fireNorth(){
+		isGameOver = true;
+		if (getBoard().getWumpusX() == this.getHunterX())
+			message = "You shot the Wumpus!";
+		else
+			message = "You shot yourself!";
+	}
+		
+	private void fireEast(){
+		isGameOver = true;
+	       	if (getBoard().getWumpusY() == this.getHunterY())
+			message = "You shot the Wumpus!";
+		else
+			message = "You shot yourself!";
+
+	}
 	public int getHunterX(){
 		return hunter.getX();
 	}

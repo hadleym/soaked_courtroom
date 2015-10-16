@@ -78,4 +78,8 @@ public class Game extends Observable{
 
 	}	
 
+	public Board getBoard(){
+		return board;
+	}
+
 }

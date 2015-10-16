@@ -12,7 +12,8 @@ public class Game extends Observable{
 	
 	@Override
 	public String toString(){
-		return this.getCurre
+		return this.getCurrentTile();
+	}
 	public boolean isOver(){
 		return board.isTileDeadly(hunter.getX(), hunter.getY());
 	}

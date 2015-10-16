@@ -3,6 +3,8 @@ package controller;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -13,7 +15,7 @@ import model.Dir;
 import model.Game;
 import model.Hunter;
 
-public class Controller extends JPanel{
+public class Controller extends JPanel implements KeyListener{
 	JButton north,south,east,west;
 	Game game;
 	JTextField textField;
@@ -28,41 +30,75 @@ public class Controller extends JPanel{
 		east.addActionListener( new EastActionListener());
 		south.addActionListener( new SouthActionListener());
 		
+		this.addKeyListener(new ArrowKeyListener());
+		this.setLayout(new BorderLayout());	
 		add(north, BorderLayout.NORTH);
 		add(south, BorderLayout.SOUTH);
 		add(east, BorderLayout.EAST);
 		add(west, BorderLayout.WEST);
 		add(textField, BorderLayout.CENTER);
 		game = g;
-		setSize(250,500);
-		setLocation(0,0);	
 	}
-	
+
 	private class NorthActionListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			game.move(Dir.NORTH);
-			textField.setText(game.
+			textField.setText(game.getCurrentTile());
 		}
 	}
 	private class SouthActionListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent arg0){
 			game.move(Dir.SOUTH);
+			textField.setText(game.getCurrentTile());
 		}
 	}
 	private class EastActionListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent arg0){
 			game.move(Dir.EAST);
+			textField.setText(game.getCurrentTile());
 		}
 	}
 	private class WestActionListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent arg0){
 			game.move(Dir.WEST);
+			textField.setText(game.getCurrentTile());
 		}
 	}
 
+	@Override
+	public void keyPressed(KeyEvent ke){
+		if(ke.getKeyCode() == KeyEvent.VK_UP){
+			textField.setText(game.getCurrentTile());
+			game.move(Dir.NORTH);
+		}
+		if(ke.getKeyCode() == KeyEvent.VK_DOWN){
+			game.move(Dir.SOUTH);
+			textField.setText(game.getCurrentTile());
+		}
+		if(ke.getKeyCode() == KeyEvent.VK_LEFT){
+			game.move(Dir.WEST);
+			textField.setText(game.getCurrentTile());
+		}
+		if(ke.getKeyCode() == KeyEvent.VK_RIGHT){
+			game.move(Dir.EAST);
+			textField.setText(game.getCurrentTile());
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+	}
 
 }

@@ -77,7 +77,7 @@ public class Board {
 	}
 	@Override
 	public String toString(){
-		return board[x][y].toString();
+		return getSize()[0] +","+getSize()[1];
 	}
 
 }

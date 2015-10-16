@@ -1,7 +1,7 @@
 package model;
 
 public enum Tile {
-	NONE(0),BLOOD(1),SLIME(2), PIT(3), WUMPUS(4), GOOP(5);
+	NONE(0),BLOOD(1),SLIME(2), PIT(3), WUMPUS(4), GOOP(5), NOT_VISITED(6);
 	int value;
 	Tile(int val){
 		value = val;
@@ -31,6 +31,8 @@ public enum Tile {
 			case(5):
 				retString = "GOOP";
 				break;
+			case(6):
+				retString = "NOT_VISITED";
 			default:
 				retString = "ERROR";
 			

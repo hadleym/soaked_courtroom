@@ -17,9 +17,16 @@ public class TestView extends JPanel implements Observer{
 	private JTextArea textField;
 	private static Font font = new Font("Monospaced", Font.PLAIN,12);
 	private int hunterX,hunterY;
+	private boolean[][] visible;
 	public TestView(Game g){
-
+	
 		game = g;	
+		visible = new boolean[game.getBoard().getXMax()][game.getBoard().getYMax()];
+		for (int i = 0; i < visible.length; i++){
+			for (int j = 0; j < visible[0].length; j++){
+				visible[i][j] = false;
+			}
+		}
 		textField = new JTextArea("Welcome");
 		textField.setSize(600,600);
 		setLayout(null);
@@ -27,6 +34,7 @@ public class TestView extends JPanel implements Observer{
 		textField.setFont(font);
 		hunterX = game.getHunterX();
 		hunterY = game.getHunterY();
+		visible[hunterX][hunterY] = true;
 		textField.setText(this.drawBoard());
 		add(textField);
 
@@ -37,13 +45,18 @@ public class TestView extends JPanel implements Observer{
 		String printString = new String();
 		for (int y = 0; y < game.getBoard().getXMax(); y++){
 			for (int x = 0; x < game.getBoard().getYMax(); x++){
-				if ((x == hunterX)&&(y == hunterY))
+				if ((x == hunterX)&&(y == hunterY)){
 					printString+= "[H]";
-				else 
+					visible[hunterX][hunterY] = true;
+				} else 
+					if (visible[x][y])
 					printString+= this.tileOutput(game.getBoard().getTile(x,y));
+					else 
+						printString+=this.tileOutput(Tile.NOT_VISITED);
 			}
 			printString+="\n";
 		}
+
 		return printString;
 	}
 				
@@ -62,8 +75,10 @@ public class TestView extends JPanel implements Observer{
 				return "[W]";
 			case GOOP:
 				return "[G]";
-			default:
+			case NOT_VISITED:
 				return "[X]";
+			default:
+				return "[*]";
 			}
 	}
 	@Override
@@ -71,8 +86,11 @@ public class TestView extends JPanel implements Observer{
 		game = (Game) arg0;	
 		hunterX = game.getHunterX();
 		hunterY = game.getHunterY();
-		textField.setText(drawBoard());
-		
+		String text = drawBoard()+game.getCurrentTile();
+		if (game.isOver())
+			text+="\n GAME OVER!";
+		textField.setText(text);
+				
 	}
 
 

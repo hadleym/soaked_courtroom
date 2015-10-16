@@ -5,9 +5,11 @@ import java.util.Observer;
 public class Game extends Observable{
 	private Hunter hunter;
 	private Board board;
+	private boolean isGameOver;
 	public Game(Hunter h, Board b){
 		hunter = h;
 		board = b;
+		isGameOver = false;
 	}
 	
 	@Override
@@ -15,26 +17,29 @@ public class Game extends Observable{
 		return this.getCurrentTile();
 	}
 	public boolean isOver(){
-		return board.isTileDeadly(hunter.getX(), hunter.getY());
+		return(isGameOver = board.isTileDeadly(hunter.getX(), hunter.getY()));
 	}
 	public void move(Dir d){
-		switch(d){
-			case EAST:
-				moveEast();
-				break;
-			case WEST:
-				moveWest();
-				break;
-			case NORTH:
-				moveNorth();
-				break;
-			case SOUTH:
-				moveSouth();
-				break;
-			default:
-		}	
-		setChanged();
-		notifyObservers(this);
+		if (!isGameOver){
+			switch(d){
+				case EAST:
+					moveEast();
+					break;
+				case WEST:
+					moveWest();
+					break;
+				case NORTH:
+					moveNorth();
+					break;
+				case SOUTH:
+					moveSouth();
+					break;
+				default:
+			}	
+			setChanged();
+			notifyObservers(this);
+		}
+
 	}
 	public void moveWest(){
 		int x = hunter.getX();
